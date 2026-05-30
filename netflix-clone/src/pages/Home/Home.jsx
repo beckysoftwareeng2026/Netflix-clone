@@ -12,7 +12,7 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <div className="hero">
-        <img src={hero_banner} alt="banner-img" />
+        <img src={hero_banner} alt="" className="banner-img" />
         <div className="hero-caption">
           <img src={hero_title} alt="caption-img" />
           <p>
@@ -33,6 +33,12 @@ const Home = () => {
           </div>
           <TitleCards />
         </div>
+      </div>
+      <div className="more-cards">
+        <TitleCards />
+        <TitleCards />
+        <TitleCards />
+        <TitleCards />
       </div>
     </div>
   );
