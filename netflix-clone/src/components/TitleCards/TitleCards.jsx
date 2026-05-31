@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./TitleCards.css";
 import cards_data from "../../assets/cards/Cards_data";
 
@@ -21,7 +22,7 @@ const TitleCards = ({ title, category }) => {
   };
   useEffect(() => {
     fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+      `https://api.themoviedb.org/3/movie/${category ? category : "now_playing"}?language=en-US&page=1`,
       options,
     )
       .then((response) => response.json())
@@ -29,25 +30,32 @@ const TitleCards = ({ title, category }) => {
       .catch((err) => console.error(err));
 
     const currentRef = cardsRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("wheel", handleWheel);
+    }
 
-    currentRef.addEventListener("wheel", handleWheel);
+    return () => {
+      if (currentRef) currentRef.removeEventListener("wheel", handleWheel);
+    };
   }, []);
 
   return (
     <div className="title-cards">
       <h2>{title ? title : "Popular on Netflix"}</h2>
       <div className="card-list" ref={cardsRef}>
-        {apiData.map((card, index) => {
-          return (
-            <div className="card" key={index}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
-                alt=""
-              />
-              <p>{card.original_title}</p>
-            </div>
-          );
-        })}
+        {apiData.map((card, index) => (
+          <Link
+            to={`/player/${card.id}`}
+            className="card"
+            key={card.id || index}
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
+              alt={card.original_title || ""}
+            />
+            <p>{card.original_title}</p>
+          </Link>
+        ))}
       </div>
     </div>
   );
