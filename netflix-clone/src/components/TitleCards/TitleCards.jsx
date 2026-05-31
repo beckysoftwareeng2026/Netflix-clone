@@ -17,18 +17,20 @@ const TitleCards = ({ title, category }) => {
 
   const handleWheel = (event) => {
     event.preventDefault();
-    cardsRef.current.scrolLeft += event.deltaY;
+    cardsRef.current.scrollLeft += event.deltaY;
   };
   useEffect(() => {
     fetch(
       "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
       options,
     )
-      .then((repsonse) => response.json())
+      .then((response) => response.json())
       .then((response) => setApiData(response.results))
       .catch((err) => console.error(err));
 
-    cardsRef.current.addEventListener("wheel", handleWheel);
+    const currentRef = cardsRef.current;
+
+    currentRef.addEventListener("wheel", handleWheel);
   }, []);
 
   return (
