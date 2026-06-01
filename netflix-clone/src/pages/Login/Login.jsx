@@ -3,6 +3,8 @@ import "./Login.css";
 import logo from "../../assets/logo.png";
 import { login, signup } from "../../firebase";
 import netflix_spinner from "../../assets/netflix_spinner.gif";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
@@ -14,12 +16,20 @@ const Login = () => {
   const user_auth = async (event) => {
     event.preventDefault();
     setLoading(true);
-    if (signState === "Sign In") {
-      await login(email, password);
-    } else {
-      await signup(name, email, password);
+
+    try {
+      if (signState === "Sign In") {
+        await login(email, password);
+        toast.success("Logged in successfully!");
+      } else {
+        await signup(name, email, password);
+        toast.success("Account created successfully!");
+      }
+    } catch (error) {
+      toast.error(error.code.split("/")[1].split("_").join(" "));
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
