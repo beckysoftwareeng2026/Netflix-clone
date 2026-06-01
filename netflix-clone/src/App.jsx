@@ -23,7 +23,6 @@ const App = () => {
   }, []);
   return (
     <div>
-      <button onClick={() => toast.success("Test Toast")}>Test</button>
       <ToastContainer theme="dark" />
       <Routes>
         <Route path="/" element={<Home />} />
