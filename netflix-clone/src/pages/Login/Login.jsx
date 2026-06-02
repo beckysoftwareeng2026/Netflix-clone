@@ -32,7 +32,11 @@ const Login = () => {
     }
   };
 
-  return (
+  return loading ? (
+    <div className="login-spinner">
+      <img src={netflix_spinner} alt="" />
+    </div>
+  ) : (
     <div className="login">
       <img src={logo} className="login-logo" alt="" />
       <div className="login-form">
