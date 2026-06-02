@@ -57,7 +57,7 @@
 .hero-btns .btn.dark-btn:hover {
   background: #6d6d6e66;
 }
-.morecards {
+.more-cards {
   padding-left: 6%;
 }
 @media (max-width: 1024px) {
@@ -84,7 +84,7 @@
   .hero-btns.btn img {
     width: 20px;
   }
-  .nore-cards {
+  .more-cards {
     padding-left: 4%;
   }
 }
